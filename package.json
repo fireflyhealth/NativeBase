@@ -148,7 +148,7 @@
       "release": true,
       "requireBranch": "main",
       "assets": [
-        "build/native-base-v${version}.tgz"
+        "build/native-base-v*.tgz"
       ]
     },
     "plugins": {
