@@ -136,11 +136,20 @@
       "commitMessage": "chore: release ${version}",
       "tagName": "v${version}"
     },
+    "hooks": {
+      "before:release": [
+        "mkdir -p build && yarn pack --filename build/native-base-v${version}.tgz"
+      ]
+    },
     "npm": {
-      "publish": true
+      "publish": false
     },
     "github": {
-      "release": true
+      "release": true,
+      "requireBranch": "main",
+      "assets": [
+        "build/native-base-v${version}.tgz"
+      ]
     },
     "plugins": {
       "@release-it/conventional-changelog": {
@@ -218,11 +227,11 @@
     "lib": "lib"
   },
   "gitHead": "5bbeacc403ba97622703699132c55d8359344004",
-  "homepage": "https://github.com/GeekyAnts/NativeBase#readme",
+  "homepage": "https://github.com/fireflyhealth/NativeBase#readme",
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GeekyAnts/NativeBase.git"
+    "url": "git+https://github.com/fireflyhealth/NativeBase.git"
   },
   "collective": {
     "type": "opencollective",
