@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { BackHandler } from 'react-native';
+import { BackHandler, NativeEventSubscription } from 'react-native';
 
 type IParams = {
   enabled?: boolean;
@@ -48,12 +48,14 @@ export function useBackHandler({ enabled, callback }: IParams) {
       callback();
       return true;
     };
+    let listener: NativeEventSubscription | undefined;
     if (enabled) {
-      BackHandler.addEventListener('hardwareBackPress', backHandler);
+      listener = BackHandler.addEventListener('hardwareBackPress', backHandler);
     } else {
-      BackHandler.removeEventListener('hardwareBackPress', backHandler);
+      listener?.remove();
     }
-    return () =>
-      BackHandler.removeEventListener('hardwareBackPress', backHandler);
+    return () => {
+      listener?.remove();
+    };
   }, [enabled, callback]);
 }
