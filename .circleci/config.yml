@@ -1,0 +1,27 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@7.2.0
+
+jobs:
+  release:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install: # Will use the version specified in .nvmrc
+          install-yarn: true
+      - run: yarn
+      - run: yarn release --ci
+
+workflows:
+  version: 2
+
+  native-base:
+    jobs:
+      - release:
+          context:
+            - GITHUB
+          filters:
+            branches:
+              only:
+                - main
