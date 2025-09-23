@@ -9,8 +9,7 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    environment: main
     steps:
       - uses: actions/checkout@v3
         with:
@@ -19,10 +18,10 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
           yarn
           yarn release --ci
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.FIREFLY_DEPLOY_BOT_TOKEN }}
 
