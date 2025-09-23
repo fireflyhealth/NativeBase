@@ -10,6 +10,11 @@ jobs:
       - checkout
       - node/install: # Will use the version specified in .nvmrc
           install-yarn: true
+      - run:
+          name: Configure Git User
+          command: |
+            git config user.name "Firefly-Deploy-Bot"
+            git config user.email "105219474+Firefly-Deploy-Bot@users.noreply.github.com"
       - run: yarn
       - run: yarn release --ci
 
